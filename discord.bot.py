@@ -29,7 +29,7 @@ import wavelink
 intents = discord.Intents.all()
 bot = discord.Client(intents=intents)
 # Очевидно - префикс для того, чтобы бот реагировал на твои команды
-bot = commands.Bot(command_prefix = "?:")
+bot = commands.Bot(command_prefix = "?")
 
 
 # Даёт понять, что бот залогинился и работает
@@ -37,7 +37,7 @@ bot = commands.Bot(command_prefix = "?:")
 async def on_ready(): #без on_ почему-то не работает даже если по другому переменную назвать. Видимо в event так надо
     print('''Ты сука тупорылая блять не дал мне договорить.
     Ладно, похуй. Чел зарегался под этим логином: {0.user}'''.format(bot))
-    await bot.change_presence(activity=discord.Game(name="?:zxcкоманды"))
+    await bot.change_presence(activity=discord.Game(name="?zxcкоманды"))
 
 
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -79,7 +79,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         filename = data['title'] if stream else ytdl.prepare_filename(data)
         return filename
         
-    @bot.command(name='Сюда', help='Подключает бота к войсу')
+    @bot.command(name='сюда', help='Подключает бота к войсу')
     async def join(ctx):
         if not ctx.message.author.voice:
             await ctx.send("{} Ты не подключен, лошок".format(ctx.message.author.name))
@@ -92,7 +92,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         # file = discord.File("C:/Python/dicsord_bot/downloads/Pupich.mp3")
         voice_channel.play(discord.FFmpegPCMAudio(executable="C:/Python/dicsord_bot/ffmpeg-2022-03-03-git-72684d2c2d-full_build/bin/ffmpeg.exe", source = 'C:\Python\dicsord_bot\downloads\Pupich.mp3', **ffmpeg_options))
 
-    @bot.command(name='Пиздуй', help='Лив бота с войса')
+    @bot.command(name='пиздуй', help='Лив бота с войса')
     async def leave(ctx):
         voice_client = ctx.message.guild.voice_client
         if voice_client.is_connected():
@@ -101,7 +101,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
             embed = discord.Embed(title = '🤬', description = 'Суки, выгоняют меня', colour = discord.Color.red())
             await ctx.send(embed = embed)
 
-    @bot.command(name='Сыграй', help='Играет музыку')
+    @bot.command(name='сыграй', help='Играет музыку')
     async def play(ctx,url):
         try : # Скачивает музло, если это не стрим и воспроизводит. Пока лень переписывать, чтобы не скачивало и не стрим, но похуй. Главное, что это дерьмище работает
             server = ctx.message.guild
@@ -117,7 +117,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
             # await ctx.send("Ошибка где-то здесь!!")
             await ctx.send("Lan...")
 
-    @bot.command(name='Притормози', help='Ну пауза типа')
+    @bot.command(name='притормози', help='Ну пауза типа')
     async def pause(ctx):
         voice_client = ctx.message.guild.voice_client
         if voice_client.is_playing():
@@ -126,14 +126,14 @@ class YTDLSource(discord.PCMVolumeTransformer):
             embed = discord.Embed(title = '❗️❗️❗️WARNING❗️❗️❗️', description = "Сейчас zxcбот ничего не играет", colour = discord.Color.red())
             await ctx.send(embed = embed)
         
-    @bot.command(name='Газуй', help='Продолжает воспроизводить')
+    @bot.command(name='газуй', help='Продолжает воспроизводить')
     async def resume(ctx):
         voice_client = ctx.message.guild.voice_client
         if voice_client.is_paused():
             await voice_client.resume()
         else:
             await ctx.send("До этого zxcбот нихуя не играл. Юзни '?:Сыграй' ")
-    @bot.command(name='Стопай', help='Останавливает музыку')
+    @bot.command(name='стопай', help='Останавливает музыку')
     async def stop(ctx):
         voice_client = ctx.message.guild.voice_client
         if voice_client.is_playing():
@@ -150,8 +150,8 @@ async def on_guild_join(guild):
     
     if text_channels:
         channel = text_channels[0]
-        embed = discord.Embed(title = 'Ку👋', description = '''Чтобы авторизоваться на этом сервере, напиши 👉 "Хачу роль". 
-❗️Если тебе интересны мои команды, то пропиши ?:zxcкоманды 👀 после авторизации на сервере.
+        embed = discord.Embed(title = 'Ку👋', description = '''Чтобы авторизоваться на этом сервере, напиши 👉 "дай роль". 
+❗️Если тебе интересны мои команды, то пропиши ?zxcкоманды 👀 после авторизации на сервере.
 Правила сможешь прочитать в чате "rules" сразу после того, как авторизуешься. 
 🤙Кайфуй🤙 {}!'''.format(guild.name), colour = discord.Color.red())
     
@@ -366,14 +366,14 @@ async def on_message(message): #без on_ почему-то не работае
             
         await message.channel.send('Мёртв внутри')
     
-    if message.content.startswith('?:Да') or message.content.startswith('?:ДА') or message.content.startswith('?:Yes') or message.content.startswith('?:YES'):
+    if message.content.startswith('?:да') or message.content.startswith('?:ДА') or message.content.startswith('?:Yes') or message.content.startswith('?:YES'):
         embed = discord.Embed(title = 'Пизда, ахаххахахах😂', description = 'Собакоеб гребаный, пиздуй на кинолога учиться', colour = discord.Color.red())
         await message.channel.send(embed = embed)
-    elif message.content.startswith('?:Нет') or message.content.startswith('?:НЕТ') or message.content.startswith('?:No') or message.content.startswith('?:NO'):
+    elif message.content.startswith('?:нет') or message.content.startswith('?:НЕТ') or message.content.startswith('?:No') or message.content.startswith('?:NO'):
         embed = discord.Embed(title = 'Пидора ответ, ахахаххах😂', description = 'Чел, ты в муте', colour = discord.Color.red())
         await message.channel.send(embed = embed)
     
-    if message.content.startswith('?:Пиздуй'):
+    if message.content.startswith('?:пиздуй'):
         embed = discord.Embed(title = '🤬', description = 'Ну и пошли вы все нахуй, гандоны', colour = discord.Color.red())
         await message.channel.send(embed = embed)
     
@@ -381,7 +381,7 @@ async def on_message(message): #без on_ почему-то не работае
         embed = discord.Embed(title = 'Двухметровые мужики', colour = discord.Color.red())
         await message.channel.send(embed = embed)
 
-    if message.content.startswith('Хачу роль'):
+    if message.content.startswith('хачу роль'):
         member = message.author
         role = get(member.guild.roles, name="Общинники")
         await member.add_roles(role)
